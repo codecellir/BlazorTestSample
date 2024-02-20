@@ -1,0 +1,27 @@
+@using MyBlazorApp.Components.Pages
+@inherits TestContext
+
+@code{
+
+
+    [Fact]
+    public void CurrentLabel_CountIsSet_WhenClick_ExpectedValue()
+    {
+        //Arrange
+        var renderComponent = RenderComponent<Counter>();
+
+        renderComponent.SetParametersAndRender(_ =>
+        {
+            _.Add<int>(_ => _.CurrentCount, 5);
+        });
+
+        //Act
+        renderComponent.Find("button").Click();
+
+
+        //Assert
+
+        renderComponent.Find("p")
+            .MarkupMatches("<p role=\"status\">Current count: 6</p>");
+    }
+}
